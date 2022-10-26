@@ -1,0 +1,50 @@
+version: '3.9'
+
+networks:
+  laravel:
+      name: laravel
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: ./.docker/nginx/Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/html:delegated
+    depends_on:
+      - php
+      - redis
+      - postgres
+    networks:
+      - laravel
+
+  postgres:
+    image: postgres:13.3
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: homestead
+      POSTGRES_USER: homestead
+      POSTGRES_PASSWORD: secret
+      POSTGRES_ROOT_PASSWORD: secret
+    networks:
+      - laravel
+
+  php:
+    build:
+      context: .
+      dockerfile: ./.docker/php/Dockerfile
+    volumes:
+      - ./:/var/www/html:delegated
+    networks:
+      - laravel
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - laravel
