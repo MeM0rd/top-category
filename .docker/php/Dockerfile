@@ -75,6 +75,7 @@ RUN mkdir -p /var/www/html
 
 RUN chown laravel:laravel /var/www/html
 
+COPY ./.docker/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Cleanup dev dependencies

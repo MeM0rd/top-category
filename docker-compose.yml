@@ -26,8 +26,8 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: homestead
-      POSTGRES_USER: homestead
+      POSTGRES_DB: secret
+      POSTGRES_USER: secret
       POSTGRES_PASSWORD: secret
       POSTGRES_ROOT_PASSWORD: secret
     networks:
@@ -41,6 +41,11 @@ services:
       - ./:/var/www/html:delegated
     networks:
       - laravel
+
+    environment:
+        - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
+        - XDEBUG_CLIENT_HOST=${XDEBUG_CLIENT_HOST:-172.17.0.1}
+
   redis:
     image: redis:alpine
     restart: unless-stopped
