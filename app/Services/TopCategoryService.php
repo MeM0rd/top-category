@@ -51,7 +51,7 @@ class TopCategoryService
                 ],
             ]);
 
-        $result = json_decode($response->getBody(), true,5, JSON_THROW_ON_ERROR);
+        $result = json_decode($response->getBody(), true, 5, JSON_THROW_ON_ERROR);
 
         return $result['data'];
     }
@@ -92,13 +92,20 @@ class TopCategoryService
     private function saveTopCategories(array $topCategories, string $date): void
     {
         foreach ($topCategories as $categoryId => $position) {
-            $model = new  Category();
+            $model = new Category();
 
-            $model->category_id = $categoryId;
-            $model->date = $date;
-            $model->position = $position;
+            $isExist = Category::where('category_id', $categoryId)
+                ->where('date', $date)
+                ->where('position', $position)
+                ->exists();
 
-            $model->save();
+            if (!$isExist) {
+                $model->category_id = $categoryId;
+                $model->date = $date;
+                $model->position = $position;
+
+                $model->save();
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ class Category extends Model
     protected $fillable = [
         'category_id',
         'date',
-        'position'
+        'position',
     ];
 
     public $timestamps = false;
