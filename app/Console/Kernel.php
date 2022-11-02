@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('request-categories')->everyMinute();
+         $schedule->command('request-categories')->everyThirtyMinutes();
     }
 
     /**
