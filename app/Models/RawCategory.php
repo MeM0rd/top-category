@@ -7,24 +7,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Category
+ * App\Models\RawCategory
  *
- * @property int $category_id
+ * @property int $category
+ * @property int $sub_category
  * @property string $date
  * @property int $position
  * @method static Builder|Category newModelQuery()
  * @method static Builder|Category newQuery()
  * @method static Builder|Category query()
- * @method static Builder|Category whereCategoryId($value)
+ * @method static Builder|Category whereCategory($value)
+ * @method static Builder|Category whereSubCategory($value)
  * @method static Builder|Category whereDate($value)
  * @method static Builder|Category wherePosition($value)
  */
-class Category extends Model
+class RawCategory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'category_id',
+        'category',
+        'sub_category',
         'date',
         'position',
     ];

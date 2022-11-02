@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Dtos\CategoryDto;
 use App\Http\Requests\CategoryRequest;
 use App\Services\TopCategoryService;
-use Exception;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
@@ -15,14 +14,8 @@ class CategoryController extends Controller
         $dto = new CategoryDto();
         $dto->date = $request->get('date');
 
-        try {
-            $categories = new TopCategoryService;
-            $result = $categories->evaluateAll($dto->date);
-        } catch (Exception $e) {
-            return response([
-                'error'  => $e->getMessage(),
-            ], 500);
-        }
+        $categories = new TopCategoryService;
+        $result = $categories->getTopCategories($dto->date);
 
         return response([
             'status_code'   => 200,
